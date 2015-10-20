@@ -40,7 +40,7 @@ Output:
 <!-- .element: class="fragment" -->
 
 --
-# Async Behaviors
+## Async Behaviors - next
 Example: What is the output of this code ?
 ```javascript
 setTimeout(function(){
@@ -63,11 +63,15 @@ You will never see the "1", Why ? <!-- .element: class="fragment" -->
 The callback call has been added to the queue but the event loop doesn't have any "time" to check the queue<!-- .element: class="fragment" -->
 
 --
-A `for` Loop is said synchronized (or sync.)
+### Async Behaviors - conclusion
+A `for` Loop is a *synchronized* piece of code (or sync.)
 > No other code will be able to run between two lines of synchronized type of code
 
-The `setTimeout` function is said asynchronized (or async.)
-> Other code might execute between a funcion call and ifs callback call
+The `setTimeout` function is an asynchronized function (or async.)
+
+> Other code may execute between a function call and its callback call
+
+From the JavasScript process viewpoint, every I/O is asynchronized
 
 ---
 
@@ -75,7 +79,7 @@ The `setTimeout` function is said asynchronized (or async.)
 - NodeJS Installation : `brew install nodejs`
 - What is NodeJS
   - Let's look at the deps folder: https://github.com/nodejs/node/tree/master/deps
-- [Reference](https://nodejs.org/api/)
+- Here is the doc: [Reference](https://nodejs.org/api/)
 
 --
 # Exercice
@@ -85,7 +89,7 @@ Write a very simple webserver
 - Access you web server with a browser
 
 --
-# Exercice
+# Exercice - next
 Improve your webserver to read the query and serve files
 - Parse the query to grab the filename
 - use the `readFile` function in the `filesystem` package to access files locally
@@ -93,7 +97,7 @@ Improve your webserver to read the query and serve files
 
 ---
 
-# Javascript injection
+### Javascript injection for the lulz
 - Create a file containing: 
 ```javascript 
   alert('I\'ve been injected');
@@ -113,16 +117,22 @@ existingScriptTag.parent.appendChild(s);
 # Algorithmy
 What is an [algorithm](https://fr.wikipedia.org/wiki/Algorithme) ?
 
-Basic mathematic concept
-  - Sum: $\sum_{i=0}^n i = \frac{n(n+1)}{2}$
-  - limit: $\lim_{x\to 0}$
-  - equivalence: $f(n) \sim n$
-  - factorial: $n!$
-  - logarithm: $\log(x)$
+First: Basic mathematic concept checkup
+  - A sum: $\sum_{i=0}^n i = \frac{n(n+1)}{2}$
+  - A limit: $\lim_{x\to 0}$
+  - An equivalence: $f(n) \sim n$
+  - A factorial: $n!$
+  - A logarithm: $\log(x)$
 
 --
 # Exercice
+What are the equivalence of those functions in $+\infty$
+- $f(n) = n^6 + 3n \sim_?$
+- $f(n) = 2^n + 12 \sim_?$
+- $f(n) = 3^n + 2^n \sim_?$
+- $f(n) = n^n + n \sim_?$
 
+Note: 
 
 ---
 # Complexity
@@ -200,8 +210,10 @@ for(var i = 0;i < n;i++){
 --
 You can say that: $\Theta(n) = \sum_{i=0}^n i$ but if you don't know how to calculate this formula it's clearly of no use
 
+What can we do ?
+
 ----
-We know that $ \Theta(n) = \sum_{i=0}^n i $ and $i < n$
+We know that $ \Theta(n) = \sum_{i=0}^n i $ and $\forall i: i < n$ <!-- .element: class="fragment" -->
 
 So we can say $ \Theta(n) < \sum_{i=0}^n n => \Theta(n) < n^2 $ <!-- .element: class="fragment" -->
 
