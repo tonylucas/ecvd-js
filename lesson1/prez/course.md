@@ -195,14 +195,14 @@ We read it"Big O of n":
 var b = [];
 for(var i = 0;i < n;i++){
   var m = a[0];
-  var mi = 0;
-  a.forEach(function(element, i){
+  var mj = 0;
+  a.forEach(function(element, j){
     if(element < m){
       m = element;
-      mi = i;
+      mj = j;
     }
   });
-  array.splice(mi, 1);
+  a.splice(mj, 1);
   b.push(m); 
 }
 ```
