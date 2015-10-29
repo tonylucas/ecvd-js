@@ -27,9 +27,9 @@ Answer: Same as first one
 
 
 // Ex3
-for(var i = n; i > 0; i-- ) {
-  for(var j = 1; j < n; j *= 2 ) {
-    for(var k = 0; k < j; k++ ) {
+for(var i = n; i > 0; i-- ) { // n
+  for(var j = 1; j < n; j *= 2 ) { // log(n)
+    for(var k = 0; k < j; k++ ) { // j
       ... // constant number C of operations
     }
   }
