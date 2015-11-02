@@ -1,8 +1,21 @@
 function loopSize(node){
   // Put your code here
-  
+var tab = [];
+var j=0;
+
+for (j=0;; node=node.next){
+
+  if (tab.indexOf(node) === -1) {
+    tab.push(node);
+    j++;
+  }
+  else {
+    console.log(tab.indexOf(node));
+    return j- tab.indexOf(node);;
+  }
 }
 
+}
 // Teseting environment
 function createChain(tailLength, loopLength){
   list = [];
