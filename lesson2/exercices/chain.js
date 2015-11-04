@@ -9,9 +9,9 @@ function loopSize(node){
     node = node.next;
   }
 
-  // console.log(lenght, array.indexOf(position));
-  
-  return lenght - array.indexOf(position);
+  // console.log(lenght, array.indexOf(node));
+
+  return lenght - array.indexOf(node);
 }
 
 // Teseting environment
