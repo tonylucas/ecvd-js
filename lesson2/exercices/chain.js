@@ -1,6 +1,17 @@
 function loopSize(node){
-  // Put your code here
+
+  array = [];
+  lenght = 0;
   
+  while(array.indexOf(node) == -1) {
+    array.push(node);
+    lenght ++;
+    node = node.next;
+  }
+
+  // console.log(lenght, array.indexOf(position));
+  
+  return lenght - array.indexOf(position);
 }
 
 // Teseting environment
