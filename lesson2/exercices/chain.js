@@ -1,18 +1,14 @@
 function loopSize(node){
-  // Put your code here
-var tab = [];
-var j=0;
-
-for (j=0;; node=node.next){
-
-  if (tab.indexOf(node) === -1) {
-    tab.push(node);
-    j++;
+  array = [];
+  lenght = 0;
+  
+  while(array.indexOf(node) == -1) {
+    array.push(node);
+    lenght ++;
+    node = node.next;
   }
-  else {
-    console.log(tab.indexOf(node));
-    return j- tab.indexOf(node);;
-  }
+
+  return lenght - array.indexOf(node);
 }
 
 }
