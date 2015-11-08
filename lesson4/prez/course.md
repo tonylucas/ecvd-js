@@ -1,5 +1,5 @@
 # JS / Algo
-## Understanding functions
+## Understanding functions and scope
 
 *Pre-requisites: lesson 3*
 
@@ -362,6 +362,7 @@ function three() {
 }
 console.log(a); // Display 1
 ```
+
 --
 ## Nested scope
 ```javascript
