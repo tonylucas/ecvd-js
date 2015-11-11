@@ -12,7 +12,7 @@ var proxy = http.createServer(function (req, res) {
 
 
   var arrayString = req.url.split("?");
-  var agmtsString = arrayString[1];
+  var argString = arrayString[1];
   var agmts = argString.split("&");
   var paramObjet = {};
 
@@ -21,16 +21,28 @@ var proxy = http.createServer(function (req, res) {
     paramObjet [argument[0]] = argument [1];
   }
 
-  console.log(paramObjet);
+  console.log("paramObjet", paramObjet.website);
 
   if (/favicon.ico/i.test(req.url)) {
     res.writeHead(404, {'Content-Type': 'text/html'});
     res.end();
+    return;
   }
-  else {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end();
-  }
+
+  var options = {
+
+  		hostname: paramObjet.website
+
+  };
+
+  	http.get(options, function(resp) {
+  		resp.on('data', function(chunk) {
+  			res.end(chunk);
+  		});
+  	}).on ('error', function(e) {
+  		console.log("Got error: " + e.message);
+
+  	});
 
   console.log(req.url);
 
