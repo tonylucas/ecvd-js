@@ -1,119 +1,115 @@
 var http = require('http'); // We require the http module, needed to handle http request
-var fs = require('fs'); // We require the file system to access files
 
-function extractDomain(url) {
-    var domain;
-    //find & remove protocol (http, ftp, etc.) and get domain
-    if (url.indexOf("://") > -1) {
-        domain = url.split('/')[2];
+
+function parseUrl(url){
+  var urlData = {
+    url: url,
+    params: {}
+  };
+
+  var splittedUrl = url.split("?")
+  urlData.route = splittedUrl[0];
+  if(splittedUrl.length === 2){
+    var params = splittedUrl[1].split("&");
+    for(var i=0; i < params.length; i++){
+      var subParams = params[i].split("=");
+      if(subParams.length === 2){
+        urlData.params[subParams[0]] = subParams[1];
+      }
     }
-    else {
-        domain = url.split('/')[0];
-    }
-
-    //find & remove port number
-    domain = domain.split(':')[0];
-
-    return domain;
+  }
+  return urlData;
 }
 
 function request(url, path, callback) {
-  console.log('url : '+ url);
+    // console.log('url : '+ url);
+    // console.log('path : '+path);
 
-  var options = {
-    host: url,
-    port: 80,
-    path: path,
-    method: 'GET'
-  };
+    var options = {
+        host: url,
+        path: path,
+        method: 'POST'
+    };
 
-  http.request(options, function(res) {
-    console.log('STATUS: ' + res.statusCode);
-    var header = res.headers;
-    //console.log('HEADER: ', header);
+    http.request(options, function(responseQuery) {
 
-    if(res.statusCode === 200) {
+        //console.log('STATUS: ' + responseQuery.statusCode);
+        var header = responseQuery.headers;
+        //console.log('HEADER: ', header);
 
-      res.setEncoding('utf8');
+        if(responseQuery.statusCode === 200) {
 
-      var the_body = '';
-      var i = 0;
+            responseQuery.setEncoding('utf8');
 
-      res.on('data', function (chunk) {
-        the_body += chunk;
-        i++;
-        // console.log(i);
-        // console.log(the_body);
-      });
+            var the_body = '';
 
-      res.on('end', function() {
+            responseQuery.on('data', function (chunk) {
+                the_body += chunk;
+            });
 
-        var response = {
-          body:the_body,
-          content_type:header['content-type'],
-          code: res.statusCode
+            responseQuery.on('end', function() {
+
+                //console.log('responseQueryPONSE SENT MADAFUCKA');
+
+                var response = {
+                    body:the_body,
+                    code: responseQuery.statusCode,
+                    headers: header
+                };
+
+                callback(null, response);
+            });
+
+        } else if(responseQuery.statusCode === 301 || responseQuery.statusCode === 302) {
+            console.log('location : '+header.location);
+
+            var location = header.location.split("?");
+
+            if(location[0].substr(0, 4) === 'http') {
+                if(location[0].substr(0, 7) === 'http://') {
+                    the_url = location[0].substr(7);
+                } else if(location[0].substr(0, 7) === 'https:/') {
+                    the_url = location[0].substr(8);
+                }
+
+                the_url = the_url.slice(0, -1);
+
+                var the_path = (typeof location[1] === 'undefined') ? the_path = '' : '/?'+location[1];
+
+                request(the_url, the_path, callback);
+            } else {
+                console.log('ERROR', location);
+            }
         }
 
-        callback(null, response);
-      });
-
-    } else if(res.statusCode === 301 || res.statusCode === 302) {
-      console.log('location : '+header.location);
-
-      var location = header.location.split("?");
-
-      //console.log('location', location);
-
-      // var the_url = extractDomain('http://'+location);
-      // console.log('the_url', the_url);
-
-      // var the_path;
-
-      // if(typeof location.split('/')[3] !== 'undefined') {
-      //   the_path = location;
-      // }
-
-      the_url = location[0];
-      the_path = location[1];
-
-      console.log('the_url', the_url);
-      console.log('the_path', the_path);
-      if(typeof the_path === 'undefined') {
-        the_path = '';
-      }
-
-      request(the_url, the_path, callback);
-    }
-
-  }).end();
+    }).end();
 }
 
 http.createServer(function (req, res) {
 
-  var data = req.url.split("?");
-  if(typeof data[1] !== 'undefined') {
+    if(/favicon/i.test(req.url)){ res.writeHead(404); res.end(); return; }
+    var data = req.url.split("?");
 
-    var koko = data[1].split('=')[1];
+    if(typeof data[1] !== 'undefined') {
 
-    request(koko, '', function(error, response) {
+        var target_url = data[1].split('=')[1];
 
-     //console.log(response);
+        request(target_url, '', function(error, response) {
 
-      //process.exit();
+            //console.log(response.headers);
+            // for(var header in response.headers) res.setHeader(header, response.headers[header]);
 
-      res.writeHead(response.code, {'Content-Type': 'text/html'});
+            res.writeHead(response.code, response.headers);
 
-      //res.end(response.body);
+            console.log(response.body);
 
-      res.write(response.body , function(err) {
-        console.log('err', err);
-        res.end();
-      });
-      
-    });
-  }
-  
+            res.write(JSON.stringify(response.body));
+            res.end();
+
+            return;
+        });
+    }
+
 }).listen(1337);
 
 console.log('Server running at http://localhost:1337/');
-
