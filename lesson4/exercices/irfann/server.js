@@ -22,9 +22,9 @@ http.createServer(function (req, res) { // This callback is called every time a 
 
     var options = {
  
-    host: paramObjet.site
+      hostname: paramObjet.site
 
-  };
+    };
 
     http.get(options, function(resp) {
       resp.on('data', function(chunk){
