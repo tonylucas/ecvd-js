@@ -1,30 +1,51 @@
-var http = require('http'); // We require the http module, needed to handle http request
-var fs = require('fs'); // We require the file system to access files
+var http = require('http');
+var url = require('url');
+var querystring = require('querystring');
 
-// We create the server
-http.createServer(function (req, res){
-
-  var arrayString = req.url.split("?");//.shift().substr(1);
-  var agmtsString = arrayString[1];
-  console.log(agmtsString);
-  var agmts = agmtsString.split('&');
-  var paramObjet = {};
-
-  for (var i = 0; i < agmts.length; i++) {
-    var argument = agmts[i].split('=');
-    paramObjet[argument[0]] = argument[1];
-  }
-  console.log(paramObjet);
-
+var server = http.createServer(function (browserRequest,proxyResponse){
   var regex = /favicon/;
 
-  if(regex.test(req.url)){
-    res.writeHead(404,{'Content-Type': 'text/plain'});
-    res.end();
-  } else{
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end();
+  if(regex.test(browserRequest.url)){
+    proxyResponse.writeHead(404);
+    proxyResponse.end();
+    return;
   }
-}).listen(1337, "127.0.0.1");
 
-console.log('Server running at http://127.0.0.1:1337/');
+  var page = url.parse(browserRequest.url).pathname;
+  console.log(page);
+
+  var params = url.parse(browserRequest.url).query;
+  console.log(params);
+
+  var arrayParams = querystring.parse(params);
+  console.log(arrayParams);
+
+  var option = {host: arrayParams.website};
+  console.log(option);
+
+  var proxyRequest = http.request(option,function (websiteResponse){
+    var data = '';
+    
+    websiteResponse.on('data',function (chunk){
+      data += chunk;
+    });
+    websiteResponse.on('end',function (){
+      proxyResponse.writeHead(websiteResponse.statusCode,websiteResponse.headers);
+      proxyResponse.write(data);
+      proxyResponse.end();
+    });
+  });
+
+  proxyRequest.end();
+
+
+  //res.writeHead(200,{'Content-Type': 'text/html'});
+  // if(page == '/test' && 'nom' in arrayParams && 'prenom' in arrayParams){
+  //   res.write('<p>Je suis sur la page <strong>test</strong></p><p>Tu es ' + arrayParams['prenom'] + ' ' + arrayParams['nom'] +'</p>');
+  // } else {
+  //   res.write('<p>Je suis sur la page <strong>d\'accueil</strong></p>');
+  // }
+  //res.end();
+});
+
+server.listen(1337, '127.0.0.1');
