@@ -8,10 +8,15 @@ var http = require('http'); // We require the http module, needed to handle http
 var fs = require('fs'); // We require the file system to access files
 
 // We create the server
-var proxy = http.createServer(function (req, res) {
+var proxy = http.createServer(function (browserRequest, proxyResponse) {
 
+  if (/favicon.ico/i.test(browserRequest.url)) {
+    proxyResponse.writeHead(404, {'Content-Type': 'text/html'});
+    proxyResponse.end();
+    return;
+  }
 
-  var arrayString = req.url.split("?");
+  var arrayString = browserRequest.url.split("?");
   var argString = arrayString[1];
   var agmts = argString.split("&");
   var paramObjet = {};
@@ -21,13 +26,9 @@ var proxy = http.createServer(function (req, res) {
     paramObjet [argument[0]] = argument [1];
   }
 
-  console.log("paramObjet", paramObjet.website);
+  console.log(paramObjet.website);
 
-  if (/favicon.ico/i.test(req.url)) {
-    res.writeHead(404, {'Content-Type': 'text/html'});
-    res.end();
-    return;
-  }
+
 
   var options = {
 
@@ -35,20 +36,26 @@ var proxy = http.createServer(function (req, res) {
 
   };
 
-  	http.get(options, function(resp) {
-  		resp.on('data', function(chunk) {
-  			res.end(chunk);
+  	http.get(options, function(websiteResponse) {
+  		//init dataAll
+      var dataAll = '';
+      websiteResponse.on('data', function(data) {
+        dataAll += data;
+    		
   		});
-  	}).on ('error', function(e) {
-  		console.log("Got error: " + e.message);
+ 
 
-  	});
+      websiteResponse.on('end', function() {
+    		proxyResponse.end(dataAll);
+    	});
+    });
+      console.log(browserRequest.url);
 
-  console.log(req.url);
-
-});
+  });
 
 
 proxy.listen(1337, "127.0.0.1");
 
 console.log('Server running at http://127.0.0.1:1337/');
+
+
