@@ -355,11 +355,13 @@ var a = 1; // global scope
 function two(a) { // local scope
   console.log(a); // Display the value of a at runtime
 }
+two(2); // Display 2
 
 function three() {
   var a = 3; // local scope again
   console.log(a); // Display 3
 }
+
 console.log(a); // Display 1
 ```
 
@@ -453,6 +455,8 @@ Some interesting thing happend when you do that:
   - A closure scope is not destroyed when it returns
   - The returned inner-function can still access the scope of the closure when it will be used
 
+[Source](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) <!-- .element: target="_blank" -->
+
 --
 # Example
 ```javascript
@@ -471,8 +475,6 @@ console.log(add5(7)); // Display 12
 We can use closure to *save the state* of our application at a given time for a given function.
 
 See the closure.js file in the exercices folder
-
-[Source](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) <!-- .element: target="_blank" -->
 
 [Diving deep into closures](http://www.jibbering.com/faq/notes/closures/) <!-- .element: target="_blank" -->
 
