@@ -1,38 +1,87 @@
 var http = require('http');
 
-http.createServer(function (request, response) {
-    var data = request.url.split("?");
-    var argsString = data[1];
-    var args = argsString.split("&");
-    var paramObjet = {};
-    for (var i = 0; i < args.length; i++) {
-        var argument = args[i].split('=');
-        paramObjet[argument[0]] = argument[1];
+
+
+var getPage = function (host, response, url) {
+
+
+
+    if (url) {
+        //        host = url.replace(/.*?:\/\//g, "").split('?')[0].replace('/', "");
+        host = url;
     }
 
 
-    if (/favicon/.test(request.url)) {
-        res.writeHead(404);
-        res.end();
-        return;
-    }
+
+    console.log(host);
+
+    http.request(host, function (res) {
 
 
-    var options = {
-        host: paramObjet.website
-    };
+        console.log('host', host);
 
-    http.get(options, function (res) {
+        var mainData = "";
+
+        console.log('location', res.headers.location);
 
         res.on('data', function (chunk) {
-            console.log('BODY: ' + chunk);
-            response.end(chunk);
+            mainData += chunk;
         });
+
+        res.on('end', function (chunk) {
+
+
+            if (res.statusCode == 301 || res.statusCode == 302) {
+
+                console.log("Code ", res.statusCode);
+
+                getPage(host, response, res.headers.location);
+
+
+            } else {
+                response.write(mainData);
+                response.end();
+            }
+
+        });
+
+
 
 
     }).on('error', function (e) {
         console.log("Got error: " + e.message);
-    });
+    }).end();
+
+}
+
+
+http.createServer(function (request, response) {
+
+
+    if (/favicon/.test(request.url)) {
+        response.writeHead(404);
+        response.end();
+        return;
+    }
+
+
+    var data = request.url.split("?");
+    console.log(data);
+    var argsString = data[1];
+    if (argsString) {
+        var args = argsString.split("&");
+        var paramObjet = {};
+        for (var i = 0; i < args.length; i++) {
+            var argument = args[i].split('=');
+            paramObjet[argument[0]] = argument[1];
+        }
+    }
+
+
+
+    var host = paramObjet.website;
+
+    getPage(host, response);
 
 
 
