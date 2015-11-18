@@ -84,6 +84,7 @@ http.createServer(function (req, res) {
           // We proxy all the response headers
           res.writeHead(proxyResponse.statusCode, proxyResponse.headers); //We pass along all the proxy response headers
           // We proxy all the response data
+          console.log(buffer);
           res.write(buffer);
           // We finally send back the response to the browser
           res.end();
@@ -96,6 +97,6 @@ http.createServer(function (req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.end();  
   }  
-}).listen(1337, "127.0.0.1");
+}).listen(1337);
 
 console.log('Server running at http://127.0.0.1:1337/');
