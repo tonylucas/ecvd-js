@@ -32,7 +32,7 @@ Different way to define them:
 function test(){}
 console.log(test());
 ```
-**Display `undefined`** 
+**→ `undefined`** 
 
 Be carefull this is not always the case:
 - PHP return `null`
@@ -53,7 +53,7 @@ function increment(a){
 a = increment(a); // JS stick here until the processing ends
 console.log(a);
 ```
-**Display `1`** <!-- .element: class="fragment" -->
+**→ `1`** <!-- .element: class="fragment" -->
 
 Sync. functions **block** the execution of the program while they process data. 
 
@@ -72,7 +72,7 @@ function asyncIncrement(a){
 a = asyncIncrement(a); // JS doesn't stick here until the processing ends
 console.log(a);
 ```
-**Display `0`** <!-- .element: class="fragment" -->
+**→ `0`** <!-- .element: class="fragment" -->
 
 Async. functions **don't block** the execution of the program while they process data
 
@@ -110,7 +110,7 @@ asyncIncrement(a, console.log);
 ```
 
 <!-- .element: class="fragment" -->
-**Display `1`** <!-- .element: class="fragment" -->
+**→ `1`** <!-- .element: class="fragment" -->
 
 --
 # Best practice
@@ -153,7 +153,7 @@ function logMyName(){
 }
 logMyName();
 ```
-**Display: `My name is logMyName`** <!-- .element: class="fragment" -->
+**→: `My name is logMyName`** <!-- .element: class="fragment" -->
 
 > This is a function declaration
 
@@ -173,7 +173,7 @@ var logMyName2 = function (){
 }
 logMyName2();
 ```
-**Display: `My name is `** <!-- .element: class="fragment" -->
+**→: `My name is `** <!-- .element: class="fragment" -->
 
 > This is a function expression
 
@@ -226,7 +226,7 @@ function power(base, exponent) {
   if (exponent == 0){ return 1; }
   return base * power(base, exponent - 1);
 }
-console.log(power(2,3)); // Display 8
+console.log(power(2,3)); // → 8
 ```
 Look at the `recursion.js` for more example
 
