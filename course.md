@@ -21,16 +21,16 @@
 #### Data Structures: Objects and Arrays
 - Data sets **(l5)**
 - Properties **(l5)**
-- Methods **(l6)**
+- Methods 
 - Objects **(l5)**
-- Mutability **(l6)**
-- Computing correlation **(l6)**
-- Objects as maps **(l6)**
-- The final analysis **(l6)**
-- Further array-ology **(l6)**
-- Strings and their properties **(l6)**
+- Mutability 
+- Computing correlation 
+- Objects as maps 
+- The final analysis 
+- Further array-ology 
+- Strings and their properties 
 - The arguments object **(l4)**
-- The Math object **(l6)**
+- The Math object 
 - The global object **(l5)**
 
 #### Higher-Order Functions
@@ -104,6 +104,15 @@
 - APIs
 - Storing data clientside
 
-
 ## Algo - Course
-- 
+- Basic mathematic concept
+  - sum **(l1)**
+  - limit **(l1)**
+  - equivalence **(l1)**
+  - factorial **(l1)**
+  - logarithm **(l1)**
+- Complexity **(l1)**
+  - Fundamental instructions **(l1)**
+  - Majoration **(l2)**
+  - Recursive complexity **(l2)**
+  - Logarithm complexity **(l2)**
