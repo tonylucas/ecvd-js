@@ -1,5 +1,5 @@
 # JS / Algo
-## Closure (2) and events
+## More on closure and events
 
 *Pre-requisites: lesson 5*
 
