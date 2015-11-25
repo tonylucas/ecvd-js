@@ -9,4 +9,4 @@ function closure () {
 }
 
 var toto = closure();
-toto('lu');
+toto('lulu');
