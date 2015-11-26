@@ -131,6 +131,7 @@ For an in depth explanation check [this article](https://medium.com/javascript-s
 
 ---
 # Closure
+<<<<<<< HEAD
 A Closure is a function returning an other function.
 ```javascript
 function outerFunction(){ // <-- This is a closure
@@ -145,6 +146,30 @@ Some interesting thing happend when you do that:
   - The returned inner-function can still access the scope of the closure when it will be used
 
 [Source](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) <!-- .element: target="_blank" -->
+=======
+Closures are functions that refer to independent (free) variables. 
+
+```javascript
+function outerFunction(){ 
+  function innerFunction(){} // As a function defined inside an other function
+  return innerFunction;
+}
+var closureFunc = outerFunction(); 
+// closureFunc is a function called a closure
+
+```
+
+Some interesting thing happend when you do that:
+  - The parent scope of a closure is not destroyed when it returns
+  - The closure can still access the scope of its parent
+
+--
+# Closure
+
+> In other words, the function defined in the closure 'remembers' the environment in which it was created
+
+[Source](https://developer.mozilla.org/en/docs/Web/JavaScript/Closures) <!-- .element: target="_blank" -->
+>>>>>>> a892f00e9fbcc6ceec94cf8b188d9e26bb7bc1ef
 
 --
 # Example
@@ -156,6 +181,7 @@ function makeAdder(x) {
     // y is defined in the local scope of makeAdder
     return x + y; // We can access the outer function scope
   }
+<<<<<<< HEAD
   return addX; // We return the function which have a reference to a variable in the outer function scope
 };
 
@@ -165,6 +191,25 @@ console.log(add5(7)); // → 12
 We can use closure to *save the state* of our application at a given time for a given function.
 
 [Diving deep into closures](http://www.jibbering.com/faq/notes/closures/) <!-- .element: target="_blank" -->
+=======
+  return addX; // We return the closure
+};
+
+var add5 = makeAdder(5);
+var add8 = makeAdder(8);
+console.log(add5(7)); // → 12
+console.log(add8(7)); // → 15
+console.log(add5(7)); // → 12
+```
+
+--
+# Example
+## Keeping state
+We can use a closure to *save the state* of our application at a given time in a given scope.
+
+[Diving deep into closures](http://www.jibbering.com/faq/notes/closures/) <!-- .element: target="_blank" -->
+
+>>>>>>> a892f00e9fbcc6ceec94cf8b188d9e26bb7bc1ef
 --
 # Exercice:
 Write a closure containing:
@@ -172,7 +217,11 @@ Write a closure containing:
 - an inner-function able to update his local state to 'cancel' or 'validated'
 - The inner function called without any argument must log the current localState
 
+<<<<<<< HEAD
 The closure must returns the inner function to be a closure ...
+=======
+You must return at least the inner function to have a closure
+>>>>>>> a892f00e9fbcc6ceec94cf8b188d9e26bb7bc1ef
 
 ---
 ## Data structure: Arrays
@@ -310,11 +359,20 @@ var list = {
 # Exercice 2
 - Write a function `arrayToList` that builds up a data structure like the previous one when given `[1, 2, 3]` as argument
 - write a `listToArray` function that produces an array from a list
+<<<<<<< HEAD
 - Run the following program and check that it returns true.
 
 ```javascript
 var data = [2, "test", false, {"ref": 3}];
 console.log(data === arrayToList(listToArray(data)));
+=======
+- Run the following program and check that it logs the same array.
+
+```javascript
+var data = [2, "test", false, {"ref": 3}];
+console.log(data);
+console.log(listToArray(arrayToList(data)));
+>>>>>>> a892f00e9fbcc6ceec94cf8b188d9e26bb7bc1ef
 ```
 
 ---
@@ -356,17 +414,26 @@ console.log(body); // → <body>...</body>
 ```
 
 ---
+<<<<<<< HEAD
 ## Project: a Todo list
+=======
+## Exercice: a Todo list
+>>>>>>> a892f00e9fbcc6ceec94cf8b188d9e26bb7bc1ef
 Using all we've seen, we'll build a simple todolist (trough next courses) with the following feature:
 - Add a todo item
 - Edit a todo item
 - Check a todo item 
 - delete a todo item
+<<<<<<< HEAD
 - Chow all items
+=======
+- Show all items
+>>>>>>> a892f00e9fbcc6ceec94cf8b188d9e26bb7bc1ef
 - Show only active items
 - Show only Completed items
 
 --
+<<<<<<< HEAD
 # Project: A Todo list
 > 
 - Create the **"add an item"** feature
@@ -377,3 +444,16 @@ Using all we've seen, we'll build a simple todolist (trough next courses) with t
 - Use multiple files
 - Use all you know about functions / scope / arrays / objects
 - use the template in the todoapp folder
+=======
+## Exercice: A Todo list
+- Create a webpack environment
+  - Create a webpack.config.js file
+  - Create an `entry.js` and `app.js` file
+  - require your `app.js` file from the `entry.js` one
+  - Be sure to load the css modules 
+```bash
+npm install css-loader style-loader
+```
+- Update the template to fit the webpack require
+- test it
+>>>>>>> a892f00e9fbcc6ceec94cf8b188d9e26bb7bc1ef
