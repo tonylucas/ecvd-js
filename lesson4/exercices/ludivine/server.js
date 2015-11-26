@@ -44,10 +44,11 @@ var proxy = http.createServer(function (browserRequest, proxyResponse) {
     		
   		});
  
-
       websiteResponse.on('end', function() {
     		proxyResponse.end(dataAll);
+        //websiteResponse.header 
     	});
+
     });
       console.log(browserRequest.url);
 
