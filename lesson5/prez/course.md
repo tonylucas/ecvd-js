@@ -391,7 +391,7 @@ Using all we've seen, we'll build a simple todolist (trough next courses) with t
   - require your `app.js` file from the `entry.js` one
   - Be sure to load the css modules 
 ```bash
-npm install css-loader style-loader
+npm install --save css-loader style-loader
 ```
 - Update the template to fit the webpack require
 - test it
