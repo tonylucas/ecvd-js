@@ -1,6 +1,23 @@
-## JS - Curriculum
+## JS / Algorithmy - Curriculum
+### Basic mathematic concept
+| Topic | Lesson |
+|---------|:--------:|
+| sum | **1** |
+| limit | **1** |
+| equivalence | **1** |
+| factorial | **1** |
+| logarithm | **1** |
+
+### Complexity
+| Topic | Lesson |
+|---------|:--------:|
+| Fundamental instructions | **1** | 
+| Majoration | **2** | 
+| Recursive complexity | **2** | 
+| Logarithm complexity | **2** | 
+
 ### Values, Types, and Operators
-| Subject | Lesson |
+| Topic | Lesson |
 |---------|:--------:|
 | Values  | **1** |
 | Numbers | **1** |
@@ -11,7 +28,7 @@
 | Automatic type conversion | **1** |
 
 ### Functions
-| Subject | Lesson |
+| Topic | Lesson |
 |---------|:--------:|
 | Defining a function | **4** |
 | Callback | **4** |
@@ -26,7 +43,7 @@
 | Closure | **5** |
 
 ### Data Structures: Objects and Arrays
-| Subject | Lesson |
+| Topic | Lesson |
 |---------|:--------:|
 | Data sets | **5** | 
 | Properties | **5** | 
@@ -41,7 +58,7 @@
 | A word on `this` | **7** |
 
 ### Functionnal programming
-| Subject | Lesson |
+| Topic | Lesson |
 |---------|:--------:|
 | Abstraction | **10** |
 | Abstracting array traversal | **10** |
@@ -55,7 +72,7 @@
 | Binding | **10** |
 
 ### Bugs and Error Handling
-| Subject | Lesson |
+| Topic | Lesson |
 |---------|:--------:|
 | Programmer mistakes | **8** |
 | Strict mode | **8** |
@@ -68,7 +85,7 @@
 | Assertions | **8** |
 
 ### Regular Expressions
-| Subject | Lesson |
+| Topic | Lesson |
 |---------|:--------:|
 | Creating a regular expression | **4** | 
 | Testing for matches | **4** | 
@@ -81,7 +98,7 @@
 | The lastIndex property | **9** |
 
 ### Modules
-| Subject | Lesson |
+| Topic | Lesson |
 |---------|:--------:|
 | Why modules help | **3** |
 | Using functions as namespaces | **5** |
@@ -93,7 +110,7 @@
 | Interface design | **3** |
 
 ### Handling Events
-| Subject | Lesson |
+| Topic | Lesson |
 |---------|:--------:|
 | Event handlers | **5** |
 | Events and DOM nodes | **5** |
@@ -105,7 +122,7 @@
 | Load event | **6** |
 
 ### Node.js
-| Subject | Lesson |
+| Topic | Lesson |
 |---------|:--------:|
 | Background | **1** |
 | Asynchronicity | **1** |
@@ -120,28 +137,10 @@
 | Error handling | **8**|
 
 ### Browser
-| Subject | Lesson |
+| Topic | Lesson |
 |---------|:--------:|
 | Browser's module | **3** |
 | Webpack | **3** | 
 | Hot reloading | **3** | 
 | APIs | **3** |
 | Storing data clientside | **7** |
-
-# Algorithmy - Curriculum
-### Basic mathematic concept
-| Subject | Lesson |
-|---------|:--------:|
-| sum | **1** |
-| limit | **1** |
-| equivalence | **1** |
-| factorial | **1** |
-| logarithm | **1** |
-
-### Complexity
-| Subject | Lesson |
-|---------|:--------:|
-| Fundamental instructions | **1** | 
-| Majoration | **2** | 
-| Recursive complexity | **2** | 
-| Logarithm complexity | **2** | 
