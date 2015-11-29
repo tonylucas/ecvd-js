@@ -251,7 +251,7 @@ console.log(myObject.otherDatum); // → undefined
 ```
 
 --
-## Data structure: Objects
+## Data structure: accesing objects
 Due to the duality between Array and Object in javascript, property can accessed in two ways:
 ```javascript
 var myObject = {
@@ -266,7 +266,7 @@ console.log(myObject.datum, myObject["datum"]); // → false, false
 var myObject = {}; 
 var dynKey = "hop";
 myObject.dynKey = 1;
-myObject[dynKey] = 2;
+myObject[dynKey] = 2; // We treat an object as a map 
 console.log(myObject);
 ```
 > → `{ dynKey: 1, hop: 2 }`

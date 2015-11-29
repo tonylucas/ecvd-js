@@ -1,7 +1,7 @@
 ## Lesson 1
-- Introduction à l’environnement
-  - Asynchronous
-  - Node
+- JavaScript environment
+  - Asynchronicity
+  - NodeJS
   - Browsers
 - Algorithmy
   - Complexity

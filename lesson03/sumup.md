@@ -2,7 +2,8 @@
 - Modules
   - Namespaces
 - NPM
-- WebPack
+- Browser's module
+  - WebPack
   - Hot reloading
 
 ## Homework
