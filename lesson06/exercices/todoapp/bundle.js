@@ -47,14 +47,37 @@
 	__webpack_require__(1);
 	__webpack_require__(5);
 
-	var app = __webpack_require__(7);
+	document.write('\
+	  <section class="todoapp"> \
+	    <header class="header"> \
+	      <h1>todos</h1> \
+	      <input class="new-todo" placeholder="What needs to be done?" autofocus> \
+	    </header> \
+	    <section class="main"> \
+	      <ul class="todo-list"></ul> \
+	    </section> \
+	    <footer class="footer"> \
+	      <span class="todo-count"></span> \
+	    </footer> \
+	  </section> \
+	  <footer class="info">\
+	  </footer>'
+	);
 
-	// check if HMR is enabled
+	var init = __webpack_require__(7);
+	var app = init();
+
 	if(false) {
-	    // accept update of dependency
-	    module.hot.accept("./app.js", function() {
-	        app = require("./app.js");
-	    });
+	  module.hot.accept("./app.js", function() {
+	    var todos = app.getTodos(); // We save the current todos
+	    document.querySelector("ul.todo-list").removeEventListener("click");
+	    document.querySelector("input.new-todo").removeEventListener("click");
+
+	    init = require("./app.js"); // We replace the application
+	    app = init();
+
+	    app.setTodos(todos); // We set back the current todos
+	  });
 	}
 
 /***/ },
@@ -449,9 +472,130 @@
 
 /***/ },
 /* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var item = __webpack_require__(8)
+
+	function initTodo(){
+	  "strict"
+
+	  var todos = [];
+	  var ul = document.querySelector("ul.todo-list");
+	  var newInput = document.querySelector("input.new-todo");
+
+	  // Events
+	  newInput.addEventListener("keypress", function(e){
+	    if(e.charCode === 13 && newInput.value != ""){
+	      addTodo(newInput.value)
+	      newInput.value = "";
+	    }
+	  });
+	  ul.addEventListener("click", function(e){
+	    if(e.target.nodeName === "BUTTON" && e.target.className === "destroy"){
+	      removeTodo(e.target.parentElement.parentElement.dataset.id); 
+	    }
+	  })
+
+	  function addTodo(todoText){
+	    todos.push(item.create(todoText));
+	    refresh();
+	  }
+
+	  function removeTodo(todoId){
+	    if(typeof(todoId) === 'number'){
+	      todoId = parseInt(todoId, 10);
+	    } else if (typeof(todoId) === 'object' && todoId.id != null){
+	      todoId = todoId.id;
+	    }
+
+	    for (var i = todos.length - 1; i >= 0; i--) {
+	      if(todos[i].id === todoId){
+	        todos.splice(i, 1);
+	      }
+	    };
+
+	    refresh();  
+	  }
+
+	  function refresh(){
+	    str = "";
+	    for (var i = todos.length - 1; i >= 0; i--) {
+	      str += '\
+	        <li data-id="' + todos[i].id + '" class=""> \
+	          <div class="view">\
+	            <label>' + todos[i].text + '</label>\
+	            <button class="destroy"></button>\
+	          </div>\
+	        </li>';
+	    }
+
+	    ul.innerHTML = str;
+	  }
+	  
+	  // Hot reloading helpers
+	  function getTodos(){
+	    return todos;
+	  }
+
+	  function setTodos(newTodos){ // Reinitialise the currentId counter    
+	    todos = newTodos;
+	    refresh();
+	  }
+
+	  return {
+	    addTodo: addTodo,
+	    removeTodo: removeTodo,
+	    refresh: refresh,
+	    getTodos: getTodos,
+	    setTodos: setTodos
+	  }
+	}
+
+	module.exports = initTodo;
+
+
+	// Hot reloading
+	if(false) {
+	  module.hot.accept("./item.js", function() {
+	    var currentId = item.getCurrentId();
+
+	    item = require("./item.js"); // We replace the application
+
+	    item.setCurrentId(currentId);
+	  });
+	}
+
+/***/ },
+/* 8 */
 /***/ function(module, exports) {
 
-	document.write("ok");
+	function itemFactory(){
+
+	  var currentId = 0;
+
+	  function create(text){
+	    return {
+	      id: currentId++,
+	      text: text
+	    };
+	  }
+
+	  function getCurrentId(){
+	    return currentId;
+	  }
+
+	  function setCurrentId(id){
+	    currentId = id;
+	  }
+
+	  return {
+	    create: create,
+	    getCurrentId: getCurrentId,
+	    setCurrentId: setCurrentId
+	  }
+	}
+
+	module.exports = itemFactory();
 
 /***/ }
 /******/ ]);
