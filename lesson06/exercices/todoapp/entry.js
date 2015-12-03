@@ -21,7 +21,6 @@ document.write('\
 var init = require("./app.js");
 var app = init();
 
-
 // Events
 var newInput = document.querySelector("input.new-todo");
 newInput.addEventListener("keypress", function(e){
