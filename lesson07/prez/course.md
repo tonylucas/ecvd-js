@@ -272,7 +272,7 @@ console.log([1, 2, 3, 2, 1].indexOf(2, 2)); // → 3
 
 --
 ## Array functions
-> **`slice`**, which takes a start index (inclusive) and an end index (inclusive) and returns an array that has only the elements between those indices. 
+> **`slice`**, which takes a start index (inclusive) and an end index (exclusive) and returns an array that has only the elements between those indices. 
 
 When the end index is not given, slice will take all of the elements after the start index. 
 
